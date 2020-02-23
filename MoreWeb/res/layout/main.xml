@@ -6,9 +6,9 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="horizontal"
-	android:divider="@drawable/ic_launcher"   
-    android:showDividers="middle"  
-    android:dividerPadding="10dp">
+	android:divider="@drawable/ic_launcher"
+	android:showDividers="middle"
+	android:dividerPadding="10dp">
 
 	<LinearLayout
 		android:layout_width="0dp"
@@ -37,6 +37,12 @@
 				android:text="http://www.baidu.com"/>
 
 		</LinearLayout>
+
+		<ProgressBar
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/mainProgressBar1"/>
 
 		<WebView
 			android:id="@+id/mainWebView1"
@@ -72,6 +78,12 @@
 				android:text="http://www.baidu.com"/>
 
 		</LinearLayout>
+
+		<ProgressBar
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/mainProgressBar2"/>
 
 		<WebView
 			android:id="@+id/mainWebView2"
