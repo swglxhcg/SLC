@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/back1"
+        android:title="B1"
+		android:showAsAction="always"/>
+	<item
+		android:id="@+id/forw1"
+		android:title="1F"
+		android:showAsAction="always"/>
+	<item
+		android:id="@+id/back2"
+		android:title="B2"
+		android:showAsAction="always"/>
+	<item
+		android:id="@+id/forw2"
+		android:title="2F"
+		android:showAsAction="always"/>
+    
+</menu>
