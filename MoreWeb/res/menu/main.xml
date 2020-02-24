@@ -17,4 +17,9 @@
 		android:title="2F"
 		android:showAsAction="always"/>
     
+	<item
+		android:id="@+id/drop"
+		android:title="DROP"
+		android:showAsAction="always"/>
+	
 </menu>

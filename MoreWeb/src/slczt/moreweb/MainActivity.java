@@ -5,6 +5,7 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.webkit.*;
+import android.content.*;
 
 public class MainActivity extends Activity implements View.OnClickListener
 {
@@ -14,6 +15,8 @@ public class MainActivity extends Activity implements View.OnClickListener
 	private WebView wv1,wv2;
 	private ProgressBar pb1,pb2;
 	private String wvt1,wvt2;
+	public String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36";
+	
 
 	@Override
 	public void onClick(View v)
@@ -73,7 +76,6 @@ public class MainActivity extends Activity implements View.OnClickListener
 		
 		WebSettings wset1=wv1.getSettings();
 		WebSettings wset2=wv2.getSettings();
-		String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36";
 		wset1.setUserAgentString(ua);
 		wset2.setUserAgentString(ua);
 		/*wset1.setJavaScriptEnabled(true);
@@ -151,6 +153,11 @@ public class MainActivity extends Activity implements View.OnClickListener
 				WebViewBackOrForward(wv2,1,wvt2);
 				setTitle(wvt1+"<O|O>"+wvt2);
 				break;
+			case R.id.drop:
+				Intent i=new Intent(getApplicationContext(),MainDrapActivity.class);
+				i.setClass(getApplicationContext(),MainDrapActivity.class);
+				startActivity(i);
+				break;
 		}
 		edt_addr1.setText(wv1.getUrl());
 		edt_addr2.setText(wv2.getUrl());
@@ -186,7 +193,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 		edt_addr2.setText(wv2.getUrl());
 		return true;
 	}
-	private void WebViewBackOrForward(WebView webview,int action,String title){
+	public void WebViewBackOrForward(WebView webview,int action,String title){
 		if(action==0){				//Webview go back.
 			if(webview.canGoBack()){
 				webview.goBack();
@@ -200,7 +207,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 			title=webview.getTitle();
 		}
 	}
-	private void webviewsettingYiTiaoLong(WebSettings webSettings){
+	public void webviewsettingYiTiaoLong(WebSettings webSettings){
 		webSettings.setJavaScriptEnabled(true);
 		//设置自适应屏幕，两者合用
 		webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
