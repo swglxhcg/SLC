@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.webkit.*;
 import android.widget.*;
 import android.view.View.*;
+import android.view.*;
 
 /**
 
@@ -31,9 +32,10 @@ import android.view.View.*;
 
  */
 
-public class MainDrapActivity extends Activity
+public class MainDrapActivity extends Activity implements View.OnClickListener
 {
 
+	
 
 	String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36";
 	
@@ -61,6 +63,8 @@ public class MainDrapActivity extends Activity
 	private Button btn,gbtn;;
 	private EditText et;
 	private TextView tv;
+	private ProgressBar pb;
+	private String title;
 
 
 
@@ -71,6 +75,23 @@ public class MainDrapActivity extends Activity
 
 
     private String TAG = MainDrapActivity.class.getName();
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		// TODO: Implement this method
+		switch (keyCode){
+			case event.KEYCODE_BACK:
+				if(wv.canGoBack()){
+					WebViewBackOrForward(wv,0,title);
+					tv.setText(title);
+				}else{
+					finish();
+				}
+				break;
+		}
+		return true;
+	}
 
 
 
@@ -87,28 +108,37 @@ public class MainDrapActivity extends Activity
 		btn=(Button)findViewById(R.id.dmainEnterButton);
 		et=(EditText)findViewById(R.id.editText1);
 		tv=(TextView)findViewById(R.id.title_drag);
-		btn.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v){
-				switch(v.getId()){
-					case R.id.dmainEnterButton:
-						wv.loadUrl(et.getText().toString());
-						WebSettings wvs=wv.getSettings();
-						wvs.setUserAgentString(ua);
-						webviewsettingYiTiaoLong(wvs);
-						break;
-				}
-			}
-		});
+		gbtn=(Button)findViewById(R.id.goforwBtn);
+		pb=(ProgressBar)findViewById(R.id.dmainProgressBar1);
+		btn.setOnClickListener(this);
+		gbtn.setOnClickListener(this);
 
         titleDrag = (TextView)findViewById(R.id.title_drag);
 
+		wv.setWebViewClient(new WebViewClient(){
+				@Override
+				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+					view.loadUrl(url);
+					et.setText(url);
+					return true;
+				}});
 
+		wv.setWebChromeClient(new WebChromeClient(){
+				@Override
+				public void onProgressChanged(WebView wv,int progress){
+					pb.setProgress(progress);
+				}
+				@Override
+				public void onReceivedTitle(WebView wv,String title){
+					tv.setText(title);
+				}
 
+			});
+		
+				
         titleDrag.setOnTouchListener(new View.OnTouchListener() {
 
-
-
+				
 				@Override
 
 				public boolean onTouch(View arg0, MotionEvent event)
@@ -158,6 +188,23 @@ public class MainDrapActivity extends Activity
     }
 
 
+	@Override
+	public void onClick(View v){
+		switch(v.getId()){
+			case R.id.dmainEnterButton:
+				wv.loadUrl(et.getText().toString());
+				WebSettings wvs=wv.getSettings();
+				wvs.setUserAgentString(ua);
+				webviewsettingYiTiaoLong(wvs);
+				break;
+			case R.id.goforwBtn:
+				if(wv.canGoForward()){
+					wv.goForward();
+				}
+				break;
+		}
+	}
+	
 
     private void updatePosition()
 	{  
